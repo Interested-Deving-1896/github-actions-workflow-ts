@@ -1,147 +1,91 @@
 # github-actions-workflow-ts
 
-Write GitHub Actions workflows in TypeScript instead of YAML!
+[![Built with Ona](https://ona.com/build-with-ona.svg)](https://app.ona.com/#https://github.com/Interested-Deving-1896/github-actions-workflow-ts) [![KDE Eco](https://img.shields.io/badge/KDE%20Eco-certified-brightgreen?logo=kde&logoColor=white&style=flat-square)](https://eco.kde.org/) [![Blue Angel](https://img.shields.io/badge/Blue%20Angel-DE--UZ%20215-0055a4?style=flat-square)](https://www.blauer-engel.de/en/certification/criteria)
 
-<p align="center"><img src="https://github.com/emmanuelnk/github-actions-workflow-ts/assets/19330930/9121bb33-cd51-41f3-830f-9b4bd1117320" alt="github-actions-workflow-ts-logo" width="400"/></p>
 
-<p align="center">
+<!-- AI:start:what-it-does -->
+_Description pending._
+<!-- AI:end:what-it-does -->
 
-  <a href="https://github.com/emmanuelnk/github-actions-workflow-ts">
-      <img src="https://raw.githubusercontent.com/ellerbrock/open-source-badges/master/badges/open-source-v1/open-source.png" alt="love opensource">
-  </a>
-  <a href="https://github.com/emmanuelnk/github-actions-workflow-ts/blob/master/LICENSE">
-      <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="license">
-  </a>
-  <a href="https://www.npmjs.com/package/@github-actions-workflow-ts/lib">
-      <img src="https://img.shields.io/npm/v/@github-actions-workflow-ts/lib.svg" alt="npm version">
-  </a>
-  <a href="https://github.com/emmanuelnk/github-actions-workflow-ts/actions/workflows/test.yml">
-      <img src="https://github.com/emmanuelnk/github-actions-workflow-ts/actions/workflows/test.yml/badge.svg" alt="Tests">
-  </a>
-      <a href="https://github.com/emmanuelnk/github-actions-workflow-ts/actions/workflows/schema-change-check.yml">
-      <img src="https://github.com/emmanuelnk/github-actions-workflow-ts/actions/workflows/schema-change-check.yml/badge.svg" alt="Schema Change Check">
-  </a>
-  <a href="https://github.com/emmanuelnk/github-actions-workflow-ts/actions">
-      <img src="https://emmanuelnk.github.io/github-actions-workflow-ts/badges/coverage.svg" alt="coverage">
-  </a>
-</p>
+## Architecture
 
-## Quick Install
+<!-- AI:start:architecture -->
+_Architecture documentation pending._
+<!-- AI:end:architecture -->
+
+## Install
+
+<!-- Add installation instructions here. This section is yours — the AI will not modify it. -->
 
 ```bash
-npm install --save-dev \
-  @github-actions-workflow-ts/lib \      # types for workflows
-  @github-actions-workflow-ts/cli \      # generates the yaml
-  @github-actions-workflow-ts/actions    # types for popular gha actions
+git clone https://github.com/Interested-Deving-1896/github-actions-workflow-ts.git
+cd github-actions-workflow-ts
 ```
 
-## Quick Example
+## Usage
 
-```typescript
-// workflows/ci.wac.ts
-import { 
-  Workflow, 
-  NormalJob, 
-  Step, 
-  expressions as ex, 
-  dedentString as ds 
-} from '@github-actions-workflow-ts/lib'
-import { 
-  ActionsCheckoutV4, 
-  ActionsSetupNodeV4
-} from '@github-actions-workflow-ts/actions'
+<!-- Add usage examples here. This section is yours — the AI will not modify it. -->
 
-const checkout = new ActionsCheckoutV4({
-  name: 'Checkout',
-})
+## Configuration
 
-const setupNode = new ActionsSetupNodeV4({
-  id: 'setup-node',
-  name: 'Setup Node.js',
-  // Typed actions give you autocomplete on `with` inputs and typed `outputs`
-  with: {
-    'node-version': '20.x',
-    cache: 'npm',
-  },
-})
+<!-- Document configuration options here. This section is yours — the AI will not modify it. -->
 
-// Plain steps work too — use whichever style fits
-const script = new Step({
-  name: 'Simple script',
-  run: ds(`
-    for i in {1..5}; do
-      if [ $i -eq 3 ]; then
-        echo "This is number three!"
-      else
-        echo "Number: $i"
-      fi
-    done
-  `)
-})
+## CI
 
-const test = new Step({
-  name: 'Run tests',
-  run: 'npm test',
-  env: {
-    CI: 'true',
-    // you can use expression helpers -> ${{ secrets.NPM_TOKEN }}
-    NODE_AUTH_TOKEN: ex.secret('NPM_TOKEN'),
-  },
-})
+<!-- AI:start:ci -->
+_CI documentation pending._
+<!-- AI:end:ci -->
 
+## Mirror chain
 
-const testJob = new NormalJob('test', {
-  'runs-on': 'ubuntu-latest',
-}).addSteps([checkout, setupNode, script, test])
+<!-- AI:start:mirror-chain -->
+This repo is maintained in [`Interested-Deving-1896/github-actions-workflow-ts`](https://github.com/Interested-Deving-1896/github-actions-workflow-ts) and mirrored through:
 
-// Every Workflow instance MUST be exported
-export const ci = new Workflow('ci', {
-  name: 'CI',
-  on: {
-    push: { branches: ['main'] },
-    pull_request: { branches: ['main'] },
-  },
-}).addJobs([testJob])
+```
+Interested-Deving-1896/github-actions-workflow-ts  ──►  OpenOS-Project-OSP/github-actions-workflow-ts  ──►  OpenOS-Project-Ecosystem-OOC/github-actions-workflow-ts
 ```
 
-Generate the YAML:
+Changes flow downstream automatically via the hourly mirror chain in
+[`fork-sync-all`](https://github.com/Interested-Deving-1896/fork-sync-all).
+Direct commits to OSP or OOC are detected and opened as PRs back to `Interested-Deving-1896`.
+<!-- AI:end:mirror-chain -->
 
-```bash
-# creates .github/workflows/ci.yml
-npx gwf build
-```
+## Contributors
 
-See more examples in the [./examples](./examples) folder and their respective output in [./.github/workflows](./.github/workflows).
+<!-- AI:start:contributors -->
+_Contributors pending._
+<!-- AI:end:contributors -->
 
-## Documentation
+## Origins
 
-**[View Full Documentation](https://github-actions-workflow-ts.vercel.app/)**
+<!-- AI:start:origins -->
+_Original project — no upstream influences recorded._
+<!-- AI:end:origins -->
 
-- [Installation](https://github-actions-workflow-ts.vercel.app/docs/getting-started/installation)
-- [Quick Start](https://github-actions-workflow-ts.vercel.app/docs/getting-started/quick-start)
-- [Writing Workflows](https://github-actions-workflow-ts.vercel.app/docs/guides/writing-workflows)
-- [Helpers](https://github-actions-workflow-ts.vercel.app/docs/core-concepts/helpers)
-- [Typed Actions](https://github-actions-workflow-ts.vercel.app/docs/guides/typed-actions)
-- [API Reference](https://github-actions-workflow-ts.vercel.app/docs/api-reference)
+## Resources
 
-## Packages
+<!-- AI:start:resources -->
+_No additional resource files found._
+<!-- AI:end:resources -->
 
-| Package | Description |
-|---------|-------------|
-| [@github-actions-workflow-ts/lib](https://www.npmjs.com/package/@github-actions-workflow-ts/lib) | Core lib for generating workflow JSON objects |
-| [@github-actions-workflow-ts/cli](https://www.npmjs.com/package/@github-actions-workflow-ts/cli) | CLI for generating YAML files |
-| [@github-actions-workflow-ts/actions](https://www.npmjs.com/package/@github-actions-workflow-ts/actions) | Typed wrappers for popular actions |
+## Accessibility
 
-## Try It Out
+<!-- AI:start:accessibility -->
+This repo uses automated accessibility auditing via `check-accessibility.yml`.
 
-Explore on CodeSandbox:
-- [Simple Example](https://codesandbox.io/p/devbox/github-actions-workflow-ts-2vthc5?file=%2Fsrc%2Fworkflows%2Fsimple.example.wac.ts)
-- [Advanced Example](https://codesandbox.io/p/devbox/github-actions-workflow-ts-2vthc5?file=%2Fsrc%2Fworkflows%2Fadvanced.example.wac.ts)
+Checks include: CODEOWNERS ownership coverage, README screen-reader compatibility,
+WCAG 2.1 AA HTML compliance, audio overview (espeak-ng), and Braille output (liblouis).
 
-## Contributing
 
-See the [Contributing Guide](https://github-actions-workflow-ts.vercel.app/docs/contributing/development-setup)
+
+
+Run the [Check Accessibility](https://github.com/Interested-Deving-1896/github-actions-workflow-ts/actions/workflows/check-accessibility.yml)
+workflow to generate the first report and accessibility artifacts.
+See [DOCS/accessibility.md](https://github.com/Interested-Deving-1896/github-actions-workflow-ts/blob/main/DOCS/accessibility.md) for the full reference.
+<!-- AI:end:accessibility -->
 
 ## License
 
-MIT
+<!-- AI:start:license -->
+[MIT](https://github.com/Interested-Deving-1896/github-actions-workflow-ts/blob/main/LICENSE) © 2026 [Interested-Deving-1896](https://github.com/Interested-Deving-1896)
+<!-- AI:end:license -->
